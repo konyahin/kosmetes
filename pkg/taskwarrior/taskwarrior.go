@@ -10,7 +10,6 @@ import (
 )
 
 type TaskWarriorClient struct {
-	bin string
 }
 
 type TaskWarriorError struct {
@@ -20,28 +19,14 @@ type TaskWarriorError struct {
 }
 
 func (err TaskWarriorError) Error() string {
-	return fmt.Sprintf("%s command failed: %v\nstderr:%v\n",
-		err.Client.getBin(), err.Err, err.Stderr)
-}
-
-func NewTaskWarriorClient(bin string) *TaskWarriorClient {
-	if bin == "" {
-		bin = "task"
-	}
-	return &TaskWarriorClient{
-		bin,
-	}
-}
-
-func (c *TaskWarriorClient) getBin() string {
-	return c.bin
+	return fmt.Sprintf("task command failed: %v\nstderr:%v\n", err.Err, err.Stderr)
 }
 
 func (c *TaskWarriorClient) error(err error, stderr string) *TaskWarriorError {
 	return &TaskWarriorError{c, err, stderr}
 }
 
-func (c *TaskWarriorClient) GetTasks(filter model.Filter) (error, []model.Task) {
+func (c *TaskWarriorClient) GetTasks(filter model.Filter) ([]model.Task, error) {
 	var writer bytes.Buffer
 	var errWriter bytes.Buffer
 	cmd := exec.Command("task", filter.Content, "export")
@@ -49,13 +34,13 @@ func (c *TaskWarriorClient) GetTasks(filter model.Filter) (error, []model.Task) 
 	cmd.Stderr = &errWriter
 
 	if err := cmd.Run(); err != nil {
-		return *c.error(err, errWriter.String()), nil
+		return nil, *c.error(err, errWriter.String())
 	}
 
 	var tasks []model.Task
 	if err := json.Unmarshal(writer.Bytes(), &tasks); err != nil {
-		return fmt.Errorf("can't parse %s output: %v", c.getBin(), err), nil
+		return nil, fmt.Errorf("can't parse task output: %v", err)
 	}
 
-	return nil, tasks
+	return tasks, nil
 }

@@ -10,18 +10,18 @@ const (
 )
 
 type Task struct {
-	Description string `json:"description"`
-	Project     string `json:"project"`
-	Status      string `json:"status"`
-	Uuid        string `json:"uuid"`
+	Description string     `json:"description"`
+	Project     string     `json:"project"`
+	Status      TaskStatus `json:"status"`
+	Uuid        string     `json:"uuid"`
 }
 
 func (t *Task) String() string {
 	var buf strings.Builder
 	switch t.Status {
-	case string(Completed):
+	case Completed:
 		buf.WriteString("x ")
-	case string(Pending):
+	case Pending:
 		buf.WriteString("- ")
 	default:
 		buf.WriteString("  ")

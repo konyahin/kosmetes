@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	taskClient := taskwarrior.NewTaskWarriorClient("")
+	var taskClient taskwarrior.TaskWarriorClient
 
 	filters := []model.Filter{
 		{
@@ -27,14 +27,14 @@ func main() {
 		},
 		{
 			Name:    "онбординг для тимлидов",
-			Content: "project:onbording",
+			Content: "project:onboarding",
 		},
 	}
 
 	for _, filter := range filters {
 		fmt.Printf("# %s\n", filter.Name)
 
-		err, tasks := taskClient.GetTasks(filter)
+		tasks, err := taskClient.GetTasks(filter)
 		if err != nil {
 			log.Fatalf("%v", err)
 		}
@@ -45,5 +45,4 @@ func main() {
 
 		fmt.Println()
 	}
-
 }
