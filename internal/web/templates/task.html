@@ -1,0 +1,4 @@
+{{define "task"}}
+<input type="checkbox" id="{{.Uuid}}" name="completed" {{if .IsCompleted}}checked{{end}} />
+<label for="{{.Uuid}}">{{.Description}}</label>
+{{end}}

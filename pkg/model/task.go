@@ -31,3 +31,7 @@ func (t *Task) String() string {
 
 	return buf.String()
 }
+
+func (t *Task) IsCompleted() bool {
+	return t.Status == Completed
+}
