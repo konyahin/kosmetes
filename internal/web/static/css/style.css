@@ -80,6 +80,14 @@
     --code-background-color: #2a2f3a;
     --code-color: #9a9fb0;
   }
+
+  #stars {
+    display: block;
+  }
+}
+
+#stars {
+  display: none;
 }
 
 body {
@@ -190,6 +198,8 @@ main {
   padding: 0.5rem 1rem;
   max-width: 800px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 header {
@@ -201,6 +211,8 @@ header {
   border-bottom: 2px solid var(--accent-color);
   box-shadow: var(--card-box-shadow);
   gap: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 header h1 {
