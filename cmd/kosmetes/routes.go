@@ -13,6 +13,8 @@ func (app *application) routes() *http.ServeMux {
 
 	mux.HandleFunc("GET /{$}", app.getMainPage)
 	mux.HandleFunc("GET /search/{$}", app.getSearch)
+	mux.HandleFunc("POST /done/{uuid}", app.postDone)
+	mux.HandleFunc("POST /undone/{uuid}", app.postUndone)
 
 	return mux
 

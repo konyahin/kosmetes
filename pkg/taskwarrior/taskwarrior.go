@@ -28,11 +28,35 @@ func (c *TaskWarriorClient) error(err error, stderr string) *TaskWarriorError {
 }
 
 func (c *TaskWarriorClient) GetTasks(filter string) ([]model.Task, error) {
-	var writer bytes.Buffer
-	var errWriter bytes.Buffer
-
 	args := strings.Split(filter, " ")
 	args = append(args, "export")
+
+	output, err := c.execute(args...)
+	if err != nil {
+		return nil, err
+	}
+
+	var tasks []model.Task
+	if err := json.Unmarshal(output, &tasks); err != nil {
+		return nil, fmt.Errorf("can't parse task output: %v", err)
+	}
+
+	return tasks, nil
+}
+
+func (c *TaskWarriorClient) Done(uuid string) error {
+	_, err := c.execute(uuid, "done")
+	return err
+}
+
+func (c *TaskWarriorClient) Undone(uuid string) error {
+	_, err := c.execute(uuid, "modify", "status:pending")
+	return err
+}
+
+func (c *TaskWarriorClient) execute(args ...string) ([]byte, error) {
+	var writer bytes.Buffer
+	var errWriter bytes.Buffer
 
 	cmd := exec.Command("task", args...)
 	cmd.Stdout = &writer
@@ -42,10 +66,5 @@ func (c *TaskWarriorClient) GetTasks(filter string) ([]model.Task, error) {
 		return nil, *c.error(err, errWriter.String())
 	}
 
-	var tasks []model.Task
-	if err := json.Unmarshal(writer.Bytes(), &tasks); err != nil {
-		return nil, fmt.Errorf("can't parse task output: %v", err)
-	}
-
-	return tasks, nil
+	return writer.Bytes(), nil
 }

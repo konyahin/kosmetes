@@ -1,5 +1,16 @@
 {{define "task"}}
-<input type="checkbox" id="{{.Uuid}}" name="completed" {{if .IsCompleted}}checked{{end}} />
+<input type="checkbox"
+       id="{{.Uuid}}"
+       name="completed"
+       hx-swap="innerHTML"
+       hx-target="closest li"
+       {{if .IsCompleted}}
+         hx-post="/undone/{{.Uuid}}"
+         checked
+       {{else}}
+         hx-post="/done/{{.Uuid}}"
+       {{end}}
+       />
 <div class="task-content">
   <div class="task-metadata">
     {{if .Project}}

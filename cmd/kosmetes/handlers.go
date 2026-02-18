@@ -55,3 +55,49 @@ func (app *application) getSearch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func (app *application) postDone(w http.ResponseWriter, r *http.Request) {
+	uuid := r.PathValue("uuid")
+	app.logger.Info("postDone", "uuid", uuid)
+
+	err := app.taskClient.Done(uuid)
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+
+	tasks, err := app.taskClient.GetTasks(uuid)
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+
+	err = app.template.ExecuteTemplate(w, "task", &tasks[0])
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+}
+
+func (app *application) postUndone(w http.ResponseWriter, r *http.Request) {
+	uuid := r.PathValue("uuid")
+	app.logger.Info("postUndone", "uuid", uuid)
+
+	err := app.taskClient.Undone(uuid)
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+
+	tasks, err := app.taskClient.GetTasks(uuid)
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+
+	err = app.template.ExecuteTemplate(w, "task", &tasks[0])
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+}
