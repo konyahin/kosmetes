@@ -1,4 +1,18 @@
 {{define "task"}}
 <input type="checkbox" id="{{.Uuid}}" name="completed" {{if .IsCompleted}}checked{{end}} />
-<label for="{{.Uuid}}">{{.Description}}</label>
+<div class="task-content">
+  <div class="task-metadata">
+    {{if .Project}}
+      <div class="project">{{.Project}}</div>
+    {{end}}
+    {{if .Tags}}
+      {{range .Tags}}
+        <div class="tag">+{{.}}</div>
+      {{end}}
+    {{end}}
+  </div>
+  <label for="{{.Uuid}}">
+    {{.Description}}
+  </label>
+</div>
 {{end}}

@@ -26,10 +26,10 @@ func (c *TaskWarriorClient) error(err error, stderr string) *TaskWarriorError {
 	return &TaskWarriorError{c, err, stderr}
 }
 
-func (c *TaskWarriorClient) GetTasks(filter model.Filter) ([]model.Task, error) {
+func (c *TaskWarriorClient) GetTasks(filter string) ([]model.Task, error) {
 	var writer bytes.Buffer
 	var errWriter bytes.Buffer
-	cmd := exec.Command("task", filter.Content, "export")
+	cmd := exec.Command("task", filter, "export")
 	cmd.Stdout = &writer
 	cmd.Stderr = &errWriter
 

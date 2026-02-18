@@ -245,3 +245,62 @@ header h1 {
 .search-form input[type="search"]::placeholder {
   color: var(--muted-color);
 }
+
+.task-metadata {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: 0.25rem;
+  align-items: center;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.task-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+  vertical-align: middle;
+}
+
+.task-content label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  line-height: 1;
+}
+
+.project {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--primary-inverse-color);
+  background-color: var(--primary-color);
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.project:hover {
+  background-color: var(--primary-hover-color);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--secondary-color);
+  background-color: transparent;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.tag:hover {
+  color: var(--secondary-hover-color);
+  background-color: var(--code-background-color);
+}

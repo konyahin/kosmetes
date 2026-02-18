@@ -10,10 +10,11 @@ const (
 )
 
 type Task struct {
+	Uuid        string     `json:"uuid"`
 	Description string     `json:"description"`
 	Project     string     `json:"project"`
 	Status      TaskStatus `json:"status"`
-	Uuid        string     `json:"uuid"`
+	Tags        []string   `json:"tags"`
 }
 
 func (t *Task) String() string {
