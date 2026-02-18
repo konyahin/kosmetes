@@ -12,6 +12,7 @@ func (app *application) routes() *http.ServeMux {
 			http.FileServer(http.Dir("./internal/web/static"))))
 
 	mux.HandleFunc("GET /{$}", app.getMainPage)
+	mux.HandleFunc("GET /search/{$}", app.getSearch)
 
 	return mux
 

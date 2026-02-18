@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os/exec"
+	"strings"
 
 	"github.com/konyahin/kosmetes/pkg/model"
 )
@@ -29,7 +30,11 @@ func (c *TaskWarriorClient) error(err error, stderr string) *TaskWarriorError {
 func (c *TaskWarriorClient) GetTasks(filter string) ([]model.Task, error) {
 	var writer bytes.Buffer
 	var errWriter bytes.Buffer
-	cmd := exec.Command("task", filter, "export")
+
+	args := strings.Split(filter, " ")
+	args = append(args, "export")
+
+	cmd := exec.Command("task", args...)
 	cmd.Stdout = &writer
 	cmd.Stderr = &errWriter
 

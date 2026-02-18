@@ -10,15 +10,17 @@
 </head>
 <body>
     <header>
-        <h1>Kosmetes</h1>
-        <form class="search-form" role="search">
-            <input type="search" name="q" placeholder="Search tasks..." aria-label="Search tasks" />
-        </form>
+      <h1>Kosmetes</h1>
+      <div class="search-form" role="search">
+        <input type="search" name="q" placeholder="Search tasks..."
+	       hx-get="/search/"
+	       hx-trigger="input changed delay:300ms, keyup[key=='Enter'], load"
+	       hx-target="#blocks"
+	       aria-label="Search tasks" value="{{.Search}}"/>
+      </div>
     </header>
-    <main>
-        {{range .Blocks}}
-            {{block "block" .}}{{end}}
-        {{end}}
+    <main id="blocks">
+      {{block "block" .}}{{end}}
     </main>
     <script src="/static/js/stars.js"></script>
     <script src="/static/js/htmx.min.js"></script>

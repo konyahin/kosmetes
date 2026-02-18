@@ -1,16 +1,20 @@
 {{define "block"}}
-<section>
-    <h2>{{.Title}}</h2>
+{{range .Blocks}}
+  <section>
+    {{if .Title}}
+      <h2>{{.Title}}</h2>
+    {{end}}
     {{if .Tasks}}
-    <ul>
+      <ul>
         {{range .Tasks}}
         <li>
-            {{block "task" .}}{{end}}
+          {{block "task" .}}{{end}}
         </li>
         {{end}}
-    </ul>
+      </ul>
     {{else}}
-    <p class="empty-message">No tasks in this block</p>
+      <p class="empty-message">No tasks</p>
     {{end}}
-</section>
+  </section>
+{{end}}
 {{end}}
