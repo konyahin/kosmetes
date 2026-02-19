@@ -14,11 +14,11 @@
 <div class="task-content">
   <div class="task-metadata">
     {{if .Project}}
-      <div class="project">{{.Project}}</div>
+      <div class="project" onclick="addTextToSearch(this)">{{.Project}}</div>
     {{end}}
     {{if .Tags}}
       {{range .Tags}}
-        <div class="tag">+{{.}}</div>
+        <div class="tag" onclick="addTextToSearch(this)">+{{.}}</div>
       {{end}}
     {{end}}
   </div>
