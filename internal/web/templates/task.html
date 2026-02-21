@@ -22,8 +22,13 @@
       {{end}}
     {{end}}
   </div>
-  <label for="{{.Uuid}}">
+  <div class="description"
+    for="{{.Uuid}}"
+    hx-get="/edit/{{.Uuid}}"
+    hx-trigger="click consume"
+    hx-swap="innerHTML"
+    hx-target="closest li">
     {{.Description}}
-  </label>
+  </div>
 </div>
 {{end}}

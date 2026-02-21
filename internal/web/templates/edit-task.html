@@ -1,0 +1,12 @@
+{{define "edit-task"}}
+<input type="text"
+       name="task"
+       {{if .Description}}
+       value="{{.FullText}}"
+       {{end}}
+       hx-post="/update/{{.Uuid}}"
+       hx-trigger="focusout, keyup[key=='Enter']"
+       hx-swap="innerHTML"
+       hx-target="closest li"
+       />
+{{end}}

@@ -101,3 +101,50 @@ func (app *application) postUndone(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func (app *application) GetTaskEdit(w http.ResponseWriter, r *http.Request) {
+	uuid := r.PathValue("uuid")
+	app.logger.Info("getTaskEdit", "uuid", uuid)
+
+	tasks, err := app.taskClient.GetTasks(uuid)
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+
+	err = app.template.ExecuteTemplate(w, "edit-task", &tasks[0])
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+}
+
+func (app *application) PostTaskUpdate(w http.ResponseWriter, r *http.Request) {
+	uuid := r.PathValue("uuid")
+	app.logger.Info("postTaskUpdate", "uuid", uuid)
+
+	if err := r.ParseForm(); err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+
+	task := r.FormValue("task")
+	if task != "" {
+		if err := app.taskClient.UpdateTask(uuid, task); err != nil {
+			app.serverError(w, r, err)
+			return
+		}
+	}
+
+	tasks, err := app.taskClient.GetTasks(uuid)
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+
+	err = app.template.ExecuteTemplate(w, "task", &tasks[0])
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+}

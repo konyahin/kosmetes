@@ -225,8 +225,7 @@ header h1 {
   margin: 0;
 }
 
-.search-form input[type="search"] {
-  width: 250px;
+.search-form input[type="search"], input[type="text"] {
   height: 28px;
   padding: 0.2rem 0.5rem;
   font-size: 0.85rem;
@@ -303,4 +302,8 @@ header h1 {
 .tag:hover {
   color: var(--secondary-hover-color);
   background-color: var(--code-background-color);
+}
+
+.description {
+    width: 100%
 }

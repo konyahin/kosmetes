@@ -54,6 +54,12 @@ func (c *TaskWarriorClient) Undone(uuid string) error {
 	return err
 }
 
+func (c *TaskWarriorClient) UpdateTask(uuid, task string) error {
+	args := append([]string{uuid, "modify"}, strings.Split(task, " ")...)
+	_, err := c.execute(args...)
+	return err
+}
+
 func (c *TaskWarriorClient) execute(args ...string) ([]byte, error) {
 	var writer bytes.Buffer
 	var errWriter bytes.Buffer
