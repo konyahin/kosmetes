@@ -37,8 +37,12 @@ func (app *application) getMainPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) getSearch(w http.ResponseWriter, r *http.Request) {
-	search, _ := getSearchRequest(r)
+	search, defaultSearch := getSearchRequest(r)
 	app.logger.Info("getSearch", "search", search)
+
+	if !defaultSearch {
+		w.Header().Add("HX-Replace-Url", "/?q="+search)
+	}
 
 	block, err := app.getTasksBlock(search)
 	if err != nil {

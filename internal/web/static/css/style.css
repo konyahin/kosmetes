@@ -307,3 +307,8 @@ header h1 {
 .description {
     width: 100%
 }
+
+h1 a {
+    --pico-text-decoration: none;
+    --pico-color: var(--pico-color);
+}
