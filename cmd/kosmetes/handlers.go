@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"net/url"
 )
 
 type MainPage struct {
@@ -41,7 +42,8 @@ func (app *application) getSearch(w http.ResponseWriter, r *http.Request) {
 	app.logger.Info("getSearch", "search", search)
 
 	if !defaultSearch {
-		w.Header().Add("HX-Replace-Url", "/?q="+search)
+		encodedSearch := url.QueryEscape(search)
+		w.Header().Add("HX-Replace-Url", "/?q="+encodedSearch)
 	}
 
 	block, err := app.getTasksBlock(search)
