@@ -16,8 +16,9 @@
 	       type="search"
 	       name="q"
 	       placeholder="Search tasks..."
+	       list="suggestions"
 	       hx-get="/search/"
-	       hx-trigger="input changed delay:300ms, keyup[key=='Enter'], load"
+	       hx-trigger="searchTriggered from:body, input changed delay:300ms, keyup[key=='Enter'], load"
 	       hx-target="#blocks"
 	       aria-label="Search tasks"
 	       value="{{.Search}}"/>
@@ -26,6 +27,7 @@
     <main id="blocks">
       {{block "block" .}}{{end}}
     </main>
+    {{block "suggestions" .}}{{end}}
     <script src="/static/js/stars.js"></script>
     <script src="/static/js/filters.js"></script>
     <script src="/static/js/htmx.min.js"></script>

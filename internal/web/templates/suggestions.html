@@ -1,0 +1,7 @@
+{{define "suggestions"}}
+<datalist id="suggestions">
+  {{range .Suggestions}}
+  <option value="project:{{.}}"/>
+  {{end}}
+</datalist>
+{{end}}

@@ -1,0 +1,14 @@
+{{define "create-task"}}
+<li>
+  <input id="create-task"
+	 type="text"
+	 name="task"
+	 list="suggestions"
+	 placeholder="Add task..."
+	 aria-label="Add task"
+	 hx-post="/create/"
+	 hx-trigger="keyup[key=='Enter']"
+	 hx-swap="outerHTML"
+	 />
+</li>
+{{end}}

@@ -44,6 +44,15 @@ func (c *TaskWarriorClient) GetTasks(filter string) ([]model.Task, error) {
 	return tasks, nil
 }
 
+func (c *TaskWarriorClient) GetProjects() ([]string, error) {
+	output, err := c.execute("_projects")
+	if err != nil {
+		return nil, err
+	}
+
+	return strings.Split(string(output), "\n"), nil
+}
+
 func (c *TaskWarriorClient) Done(uuid string) error {
 	_, err := c.execute(uuid, "done")
 	return err
@@ -56,6 +65,12 @@ func (c *TaskWarriorClient) Undone(uuid string) error {
 
 func (c *TaskWarriorClient) UpdateTask(uuid, task string) error {
 	args := append([]string{uuid, "modify"}, strings.Split(task, " ")...)
+	_, err := c.execute(args...)
+	return err
+}
+
+func (c *TaskWarriorClient) CreateTask(task string) error {
+	args := append([]string{"add"}, strings.Split(task, " ")...)
 	_, err := c.execute(args...)
 	return err
 }

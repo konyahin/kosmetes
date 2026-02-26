@@ -1,8 +1,9 @@
 {{define "task"}}
+<li class="task">
 <input type="checkbox"
        id="{{.Uuid}}"
        name="completed"
-       hx-swap="innerHTML"
+       hx-swap="outerHTML"
        hx-target="closest li"
        {{if .IsCompleted}}
          hx-post="/undone/{{.Uuid}}"
@@ -26,9 +27,10 @@
     for="{{.Uuid}}"
     hx-get="/edit/{{.Uuid}}"
     hx-trigger="click consume"
-    hx-swap="innerHTML"
+    hx-swap="outerHTML"
     hx-target="closest li">
     {{.Description}}
   </div>
 </div>
+</li>
 {{end}}

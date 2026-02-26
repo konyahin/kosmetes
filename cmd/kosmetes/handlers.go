@@ -6,8 +6,9 @@ import (
 )
 
 type MainPage struct {
-	Search string
-	Blocks []TasksBlock
+	Search      string
+	Blocks      []TasksBlock
+	Suggestions []string
 }
 
 func (app *application) getMainPage(w http.ResponseWriter, r *http.Request) {
@@ -26,9 +27,16 @@ func (app *application) getMainPage(w http.ResponseWriter, r *http.Request) {
 		searchQuery = ""
 	}
 
+	projects, err := app.taskClient.GetProjects()
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+
 	err = app.template.ExecuteTemplate(w, "base", &MainPage{
 		searchQuery,
 		[]TasksBlock{*block},
+		projects,
 	})
 
 	if err != nil {
@@ -54,6 +62,7 @@ func (app *application) getSearch(w http.ResponseWriter, r *http.Request) {
 	err = app.template.ExecuteTemplate(w, "block", &MainPage{
 		"",
 		[]TasksBlock{*block},
+		nil,
 	})
 
 	if err != nil {
@@ -149,6 +158,30 @@ func (app *application) PostTaskUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = app.template.ExecuteTemplate(w, "task", &tasks[0])
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+}
+
+func (app *application) PostTaskCreate(w http.ResponseWriter, r *http.Request) {
+	app.logger.Info("postTaskCreate")
+
+	if err := r.ParseForm(); err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+
+	task := r.FormValue("task")
+	if task != "" {
+		w.Header().Add("HX-Trigger", "searchTriggered")
+		if err := app.taskClient.CreateTask(task); err != nil {
+			app.serverError(w, r, err)
+			return
+		}
+	}
+
+	err := app.template.ExecuteTemplate(w, "edit-task", nil)
 	if err != nil {
 		app.serverError(w, r, err)
 		return

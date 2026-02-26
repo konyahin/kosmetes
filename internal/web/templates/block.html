@@ -7,10 +7,9 @@
     {{if .Tasks}}
       <ul>
         {{range .Tasks}}
-        <li>
           {{block "task" .}}{{end}}
-        </li>
         {{end}}
+	{{block "create-task" .}}{{end}}
       </ul>
     {{else}}
       <p class="empty-message">No tasks</p>

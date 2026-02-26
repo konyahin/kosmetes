@@ -179,7 +179,7 @@ section li {
   transition: background-color 0.2s ease;
 }
 
-section li:hover {
+li.task:hover {
   background-color: var(--code-background-color);
 }
 

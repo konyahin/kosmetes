@@ -17,6 +17,7 @@ func (app *application) routes() *http.ServeMux {
 	mux.HandleFunc("POST /done/{uuid}", app.postDone)
 	mux.HandleFunc("POST /undone/{uuid}", app.postUndone)
 	mux.HandleFunc("POST /update/{uuid}", app.PostTaskUpdate)
+	mux.HandleFunc("POST /create/{$}", app.PostTaskCreate)
 
 	return mux
 
