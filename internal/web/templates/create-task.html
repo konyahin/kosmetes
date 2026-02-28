@@ -3,12 +3,14 @@
   <input id="create-task"
 	 type="text"
 	 name="task"
+	 autocomplete="off"
 	 list="suggestions"
 	 placeholder="Add task..."
 	 aria-label="Add task"
 	 hx-post="/create/"
 	 hx-trigger="keyup[key=='Enter']"
 	 hx-swap="outerHTML"
+	 value="{{.TaskAttributes}}"
 	 />
 </li>
 {{end}}

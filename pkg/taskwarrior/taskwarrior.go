@@ -50,7 +50,7 @@ func (c *TaskWarriorClient) GetProjects() ([]string, error) {
 		return nil, err
 	}
 
-	return strings.Split(string(output), "\n"), nil
+	return strings.Fields(string(output)), nil
 }
 
 func (c *TaskWarriorClient) Done(uuid string) error {

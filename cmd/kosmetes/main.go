@@ -18,8 +18,9 @@ type application struct {
 }
 
 type TasksBlock struct {
-	Title string
-	Tasks []model.Task
+	Title          string
+	Tasks          []model.Task
+	TaskAttributes string
 }
 
 func main() {
