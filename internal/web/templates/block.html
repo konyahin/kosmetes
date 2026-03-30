@@ -9,11 +9,11 @@
         {{range .Tasks}}
           {{block "task" .}}{{end}}
         {{end}}
-	{{block "create-task" .}}{{end}}
       </ul>
     {{else}}
       <p class="empty-message">No tasks</p>
     {{end}}
+    {{block "create-task" .}}{{end}}
   </section>
 {{end}}
 {{end}}
