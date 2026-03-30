@@ -180,10 +180,4 @@ func (app *application) PostTaskCreate(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-
-	err := app.template.ExecuteTemplate(w, "edit-task", nil)
-	if err != nil {
-		app.serverError(w, r, err)
-		return
-	}
 }
