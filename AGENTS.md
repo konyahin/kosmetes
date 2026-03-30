@@ -23,6 +23,6 @@ Frontend:
 
 - Backend executes Taskwarrior CLI commands and parses JSON output
 - No authentication - designed for local/single-user usage
-- RESTful HTTP server on port 8000
+- RESTful HTTP server on port 8100
 - Keep all web stuff inside `internal/web`
 - Don't add comments in code
