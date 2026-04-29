@@ -308,6 +308,11 @@ header h1 {
     width: 100%
 }
 
+li.task.deleted .description {
+  text-decoration: line-through;
+  color: var(--muted-color);
+}
+
 h1 a {
     --pico-text-decoration: none;
     --pico-color: var(--pico-color);

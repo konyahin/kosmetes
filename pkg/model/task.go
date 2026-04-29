@@ -7,6 +7,7 @@ type TaskStatus string
 const (
 	Completed TaskStatus = "completed"
 	Pending   TaskStatus = "pending"
+	Deleted   TaskStatus = "deleted"
 )
 
 type Task struct {
@@ -54,4 +55,8 @@ func (t *Task) String() string {
 
 func (t *Task) IsCompleted() bool {
 	return t.Status == Completed
+}
+
+func (t *Task) IsDeleted() bool {
+	return t.Status == Deleted
 }

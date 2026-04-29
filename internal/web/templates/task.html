@@ -1,5 +1,5 @@
 {{define "task"}}
-<li class="task">
+<li class="task {{if .IsDeleted}}deleted{{end}}">
 <input type="checkbox"
        id="{{.Uuid}}"
        name="completed"
